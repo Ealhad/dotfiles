@@ -12,6 +12,7 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
+Plugin 'lervag/vimtex'
 
 " Required
 call vundle#end()
