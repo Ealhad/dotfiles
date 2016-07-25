@@ -13,6 +13,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
+Plugin 'jiangmiao/auto-pairs'
 
 " Required
 call vundle#end()
