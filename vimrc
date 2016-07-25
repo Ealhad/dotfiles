@@ -32,6 +32,10 @@ set showcmd
 set incsearch
 map Q gq
 
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
 " SuperTab Completion in the right direction
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
