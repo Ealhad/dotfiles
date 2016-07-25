@@ -4,7 +4,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let Vundle manage itself.
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
 Plugin 'easymotion/vim-easymotion'
@@ -13,6 +13,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
+Plugin 'justinmk/vim-syntax-extra'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'jiangmiao/auto-pairs'
 
 " Required
@@ -24,6 +27,7 @@ set fileencoding=utf-8
 set number
 
 set mouse=a
+set noerrorbells visualbell t_vb=
 
 syntax on
 color elflord
@@ -35,6 +39,8 @@ map Q gq
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+
+let g:ycm_confirm_extra_conf = 0
 
 " SuperTab Completion in the right direction
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -48,4 +54,7 @@ autocmd BufReadPost *
 	\ if line("'\"") > 1 && line("'\"") <= line("$") |
 	\   exe "normal! g`\"" |
 	\ endif
+
+"single-line comments for c
+autocmd FileType c setlocal comments-=:// comments+=f://
 
