@@ -36,6 +36,11 @@ set showcmd
 set incsearch
 map Q gq
 
+" Buffers
+set hidden
+map <C-h> :bprevious<CR>
+map <C-l> :bnext<CR>
+
 set expandtab
 set shiftwidth=4
 set softtabstop=4
@@ -55,6 +60,8 @@ autocmd BufReadPost *
 	\   exe "normal! g`\"" |
 	\ endif
 
-"single-line comments for c
+" single-line comments for c
 autocmd FileType c setlocal comments-=:// comments+=f://
 
+" auto-reload vimrc
+autocmd bufwritepost ~/.vimrc source ~/.vimrc
