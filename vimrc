@@ -40,7 +40,10 @@ map Q gq
 set hidden
 map <C-h> :bprevious<CR>
 map <C-l> :bnext<CR>
+map ZA :w\|bdelete<CR>
+map ZX :!bdelete<CR>
 
+map <C-n> :NERDTreeToggle<CR>
 set expandtab
 set shiftwidth=4
 set softtabstop=4
