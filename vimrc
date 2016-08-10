@@ -13,6 +13,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'lervag/vimtex'
+Plugin 'pangloss/vim-javascript'
 Plugin 'justinmk/vim-syntax-extra'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
@@ -63,7 +64,6 @@ autocmd BufReadPost *
 	\   exe "normal! g`\"" |
 	\ endif
 
-" single-line comments for c
 autocmd FileType c setlocal comments-=:// comments+=f://
 
 " auto-reload vimrc
