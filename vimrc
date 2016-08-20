@@ -18,6 +18,7 @@ Plugin 'justinmk/vim-syntax-extra'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'jnurmine/Zenburn'
 
 " Required
 call vundle#end()
@@ -37,6 +38,11 @@ set showcmd
 set incsearch
 map Q gq
 
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+nnoremap <space> za
+
 " Buffers
 set hidden
 map <C-h> :bprevious<CR>
@@ -48,8 +54,12 @@ map <C-n> :NERDTreeToggle<CR>
 set expandtab
 set shiftwidth=4
 set softtabstop=4
+set textwidth=79
+set autoindent
+set fileformat=unix
 
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion=1
 
 " SuperTab Completion in the right direction
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -64,7 +74,9 @@ autocmd BufReadPost *
 	\   exe "normal! g`\"" |
 	\ endif
 
-autocmd FileType c setlocal comments-=:// comments+=f://
+autocmd FileType c setlocal comments-=:// comments+=f:// 
+autocmd FileType html setlocal shiftwidth=2 softtabstop=2
 
 " auto-reload vimrc
 autocmd bufwritepost ~/.vimrc source ~/.vimrc
+
