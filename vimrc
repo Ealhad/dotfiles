@@ -40,6 +40,8 @@ set showcmd
 set incsearch
 map Q gq
 
+set omnifunc=syntaxcomplete#Complete
+
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
