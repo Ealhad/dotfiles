@@ -12,7 +12,9 @@ Plugin 'ervandew/supertab'
 Plugin 'tpope/vim-fugitive'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'lervag/vimtex'
+Plugin 'klen/python-mode'
 Plugin 'pangloss/vim-javascript'
 Plugin 'justinmk/vim-syntax-extra'
 Plugin 'Valloric/YouCompleteMe'
@@ -63,6 +65,16 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 " SuperTab Completion in the right direction
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:syntastic_javascript_checkers = ['jshint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
