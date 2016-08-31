@@ -10,10 +10,11 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
--- Widget library
-local vicious = require("vicious")
 
 require("volume")
+
+-- Load Debian menu entries
+require("debian.menu")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -40,13 +41,16 @@ do
 end
 -- }}}
 
+-- Compositing Manager
+awful.util.spawn_with_shell("unagi &")
+
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/theme/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "termite"
-editor = os.getenv("EDITOR") or "vim"
+editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -101,9 +105,8 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal },
-                                    { "shutdown", "systemctl poweroff" },
-                                    { "suspend", "systemctl suspend" }
+                                    { "Debian", debian.menu.Debian_menu.Debian },
+                                    { "open terminal", terminal }
                                   }
                         })
 
@@ -115,17 +118,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 -- {{{ Wibox
-
-
-batwidget = awful.widget.progressbar()
-batwidget:set_width(8)
-batwidget:set_height(14)
-batwidget:set_vertical(true)
-batwidget:set_background_color("#000000")
-batwidget:set_border_color(nil)
-batwidget:set_color("#00bfff")
-vicious.register(batwidget, vicious.widgets.bat, "$2", 120, "BAT0")
-
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
@@ -208,8 +200,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(batwidget)
-    right_layout:add(volumewidget)
+    right_layout:add(volume_widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -279,6 +270,20 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
+	-- Brightness
+	awful.key({ }, "XF86MonBrightnessDown", function ()
+		awful.util.spawn("xbacklight -dec 15") end),
+	awful.key({ }, "XF86MonBrightnessUp", function ()
+		awful.util.spawn("xbacklight -inc 15") end),
+
+	-- Volume
+	awful.key({ }, "XF86AudioRaiseVolume", function ()
+       awful.util.spawn("amixer set Master 5%+") end),
+    awful.key({ }, "XF86AudioLowerVolume", function ()
+       awful.util.spawn("amixer set Master 5%-") end),
+    awful.key({ }, "XF86AudioMute", function ()
+       awful.util.spawn("amixer set Master toggle") end),
+
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
@@ -292,20 +297,14 @@ globalkeys = awful.util.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end),
 
-    -- Brightness
-    awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.util.spawn("xbacklight -dec 5") end),
-    awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.util.spawn("xbacklight -inc 5") end),
-
-    -- Sound
-    awful.key({ }, "XF86AudioRaiseVolume", function ()
-        awful.util.spawn("amixer set Master 5%+") end),
-    awful.key({ }, "XF86AudioLowerVolume", function ()
-        awful.util.spawn("amixer set Master 5%-") end),
-    awful.key({ }, "XF86AudioMute", function ()
-        awful.util.spawn("amixer set Master toggle") end)
-
+    -- Print Screen
+    awful.key(
+        {},
+        "Print",
+        function()
+            awful.util.spawn("screenshot",false)
+        end
+    )
 )
 
 clientkeys = awful.util.table.join(
@@ -393,12 +392,12 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    -- { rule = { class = "MPlayer" },
-    --   properties = { floating = true } },
-    -- { rule = { class = "pinentry" },
-    --   properties = { floating = true } },
-    -- { rule = { class = "gimp" },
-    --   properties = { floating = true } },
+    { rule = { class = "MPlayer" },
+      properties = { floating = true } },
+    { rule = { class = "pinentry" },
+      properties = { floating = true } },
+    { rule = { class = "gimp" },
+      properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -426,6 +425,9 @@ client.connect_signal("manage", function (c, startup)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
+    elseif not c.size_hints.user_position and not c.size_hints.program_position then
+        -- Prevent clients from being unreachable after screen count change
+        awful.placement.no_offscreen(c)
     end
 
     local titlebars_enabled = false
