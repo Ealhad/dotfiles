@@ -21,6 +21,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'jnurmine/Zenburn'
+Plugin 'kovisoft/slimv'
 
 " Required
 call vundle#end()
