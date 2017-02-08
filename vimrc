@@ -17,11 +17,17 @@ Plugin 'lervag/vimtex'
 Plugin 'klen/python-mode'
 Plugin 'pangloss/vim-javascript'
 Plugin 'justinmk/vim-syntax-extra'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'jiangmiao/auto-pairs'
+Plugin 'shougo/neocomplete.vim'
 Plugin 'jnurmine/Zenburn'
 Plugin 'kovisoft/slimv'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-surround'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-classpath'
+Plugin 'tpope/vim-salve'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fireplace'
 
 " Required
 call vundle#end()
@@ -40,8 +46,6 @@ color elflord
 set showcmd
 set incsearch
 map Q gq
-
-set omnifunc=syntaxcomplete#Complete
 
 " Enable folding
 set foldmethod=indent
@@ -63,13 +67,11 @@ set textwidth=79
 set autoindent
 set fileformat=unix
 
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_autoclose_preview_window_after_completion=1
-
 " SuperTab Completion in the right direction
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 let g:syntastic_javascript_checkers = ['jshint']
+
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -83,6 +85,13 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
+let g:neocomplete#enable_at_startup = 1
+
+"AutoPairs conflicting shortcuts
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsShortcutBackInsert = ''
+
+
 " back to last opened position
 autocmd BufReadPost *
 	\ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -91,6 +100,9 @@ autocmd BufReadPost *
 
 autocmd FileType c setlocal comments-=:// comments+=f:// 
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2
+autocmd FileType css setlocal shiftwidth=2
+
+autocmd FileType lisp let b:AutoPairs = {"(": ")"}
 
 " auto-reload vimrc
 autocmd bufwritepost ~/.vimrc source ~/.vimrc
