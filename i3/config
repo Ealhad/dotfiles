@@ -168,3 +168,4 @@ bar {
 }
 
 hide_edge_borders both
+new_window pixel 1
