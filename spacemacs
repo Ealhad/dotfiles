@@ -314,7 +314,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (add-hook 'hy-mode-hook
             'highlight-sexp-mode
-            (sp-pair "'" nil :actions :rem))
+            (sp-pair "'" nil :actions :rem)
+            (sp-pair "`" nil :actions :rem))
 
 
   (add-hook 'lisp-mode-hook 'highlight-sexp-mode)
