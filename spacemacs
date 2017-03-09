@@ -313,16 +313,17 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (define-key evil-visual-state-map "j" 'evil-next-visual-line)
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
+  ;; Lisps
   (add-hook 'hy-mode-hook
             'highlight-sexp-mode
             (sp-pair "'" nil :actions :rem)
             (sp-pair "`" nil :actions :rem))
-
-
   (add-hook 'lisp-mode-hook 'highlight-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'highlight-sexp-mode)
-
   (setq hl-sexp-background-color "#222222")
+
+  ;; get rid of symbolic link question
+  (setq vc-follow-symlinks t)
 
   (setq inferior-lisp-program "ros -Q run")
   (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el")))
