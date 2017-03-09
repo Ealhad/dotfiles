@@ -325,6 +325,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
 
+  ;; Always launch magit in fullscreen
+  (setq git-magit-status-fullscreen t)
+
   (setq inferior-lisp-program "ros -Q run")
   (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el")))
 
