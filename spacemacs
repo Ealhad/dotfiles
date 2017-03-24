@@ -314,10 +314,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 
   ;; Lisps
-  (add-hook 'hy-mode-hook
-            'highlight-sexp-mode
-            (sp-pair "'" nil :actions :rem)
-            (sp-pair "`" nil :actions :rem))
+  (add-hook 'hy-mode-hook (lambda () 'highlight-sexp-mode
+                            (sp-pair "'" nil :actions :rem)
+                            (sp-pair "`" nil :actions :rem)))
   (add-hook 'lisp-mode-hook 'highlight-sexp-mode)
   (add-hook 'emacs-lisp-mode-hook 'highlight-sexp-mode)
   (setq hl-sexp-background-color "#222222")
