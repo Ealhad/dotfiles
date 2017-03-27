@@ -39,7 +39,7 @@ values."
      python
      html
      clojure
-     auto-completion
+     ivy
      (evil-snipe :variables
                  evil-snipe-enable-alternate-f-and-t-behaviors t)
      emacs-lisp
