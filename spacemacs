@@ -321,6 +321,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
 
+  ;; Haskell
+  (setq haskell-process-type 'stack-ghci)
+
   ;; TeX
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
