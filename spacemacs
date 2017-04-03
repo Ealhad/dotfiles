@@ -143,7 +143,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Monospace"
-                               :size 11
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.0)
@@ -300,7 +300,8 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (add-to-list 'default-frame-alist '(background-color . "undefined"))
+  (add-to-list 'default-frame-alist '(alpha 90 70))
+  (set-frame-parameter (selected-frame) 'alpha '(90 70))
   (setq spacemacs-theme-comment-bg nil))
 
 (defun dotspacemacs/user-config ()
