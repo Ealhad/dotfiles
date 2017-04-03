@@ -324,6 +324,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; Haskell
   (setq haskell-process-type 'stack-ghci)
+  (add-hook 'haskell-mode-hook 'intero-mode)
 
   ;; TeX
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
