@@ -319,6 +319,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
                             (sp-pair "'" nil :actions :rem)
                             (sp-pair "`" nil :actions :rem)))
 
+  ;; fast auto-completion
+  (setq company-idle-delay 0)
+
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
 
