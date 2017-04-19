@@ -63,7 +63,6 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     (vue-mode :location (recipe :fetcher github :repo "codefalling/vue-mode"))
      (hy-mode :location (recipe :fetcher github :repo "hylang/hy-mode"))
      nodejs-repl)
    ;; A list of packages that cannot be updated.
@@ -350,6 +349,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
          web-mode-code-indent-offset 2
          web-mode-css-indent-offset 2
          web-mode-markup-indent-offset 2)
+  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
   ;; org-mode
   (setq org-agenda-files '("~/org"))
