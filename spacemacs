@@ -301,13 +301,13 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  ;; moving the automatic configuration to a git-ignored file
-  (setq custom-file ".ignore/spacemacs_custom")
-  (load custom-file)
-
   (add-to-list 'default-frame-alist '(alpha 90 70))
   (set-frame-parameter (selected-frame) 'alpha '(90 70))
-  (setq spacemacs-theme-comment-bg nil))
+  (setq spacemacs-theme-comment-bg nil)
+
+  ;; moving the automatic configuration to a git-ignored file
+  (setq custom-file ".ignore/spacemacs_custom")
+  (load custom-file))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code."
