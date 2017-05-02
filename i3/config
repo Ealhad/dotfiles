@@ -66,6 +66,14 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# move workspaces around
+bindsym $mod+Shift+bracketright move workspace to output right
+bindsym $mod+Shift+bracketleft move workspace to output left
+
+# move across workspaces
+bindsym $mod+bracketright workspace next
+bindsym $mod+bracketleft workspace prev
+
 # split in horizontal orientation
 bindsym $mod+c split h
 
@@ -103,9 +111,6 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-
-bindsym $mod+Control+l workspace next
-bindsym $mod+Control+h workspace prev
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
