@@ -305,7 +305,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq spacemacs-theme-comment-bg nil)
 
   ;; moving the automatic configuration to a git-ignored file
-  (setq custom-file ".ignore/spacemacs_custom")
+  (setq custom-file "~/dotfiles/.ignore/spacemacs_custom")
   (load custom-file))
 
 (defun dotspacemacs/user-config ()
