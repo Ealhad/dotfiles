@@ -339,16 +339,19 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; TeX
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
+  ;; web-mode
+  (setq web-mode-code-indent-offset 2
+        web-mode-script-padding 0
+        web-mode-css-indent-offset 2
+        web-mode-style-padding 0
+        web-mode-markup-indent-offset 2)
   ;; web settings
   (setq  css-indent-offset 2
          display-battery-mode t
          evil-want-Y-yank-to-eol nil
          js-indent-level 2
          js2-strict-missing-semi-warning nil
-         js2-strict-trailing-comma-warning nil
-         web-mode-code-indent-offset 2
-         web-mode-css-indent-offset 2
-         web-mode-markup-indent-offset 2)
+         js2-strict-trailing-comma-warning nil)
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
   ;; org-mode
