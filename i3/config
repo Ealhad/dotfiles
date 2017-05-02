@@ -158,7 +158,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# sound and volume keys
+# brigthness and volume keys
 bindsym "XF86MonBrightnessDown" exec "light -U 5"
 bindsym "XF86MonBrightnessUp" exec "light -A 5"
 
@@ -166,15 +166,41 @@ bindsym "XF86AudioRaiseVolume" exec "amixer set Master 5%+"
 bindsym "XF86AudioLowerVolume" exec "amixer set Master 5%-"
 bindsym "XF86AudioMute" exec "amixer set Master toggle"
 
-# firefox
+# firefox and emacs
 bindsym $mod+b exec "firefox-developer"
 bindsym $mod+m exec "em"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
+    mode dock
+    strip_workspace_numbers yes
+    separator_symbol "  |  "
+    tray_output primary
+
+    colors {
+        background #333333
+        statusline #ffdddd
+        separator #ff3333
+
+        focused_workspace  #000000 #111111 #ff6666
+        active_workspace   #000000 #222222 #ffdddd
+        inactive_workspace #000000 #333333 #ffdddd
+        urgent_workspace   #000000 #FF3333 #ffdddd
+    }
 }
 
 hide_edge_borders both
 new_window pixel 1
+
+# colors
+# class                 border  backgr. text    indicator child_border
+client.focused          #ff3333 #775528 #ffffff #f49e2e   #775528
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
