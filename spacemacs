@@ -31,6 +31,9 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+     elm
      racket
      yaml
      ruby
@@ -51,6 +54,9 @@ values."
      lua
      erc
      c-c++
+     (auto-completion :variables
+                      spacemacs-default-company-backends '(company-files company-capf)
+                      auto-completion-complete-with-key-sequence-delay 0)
      (latex :variables latex-build-command "LaTeX")
      org
      (shell :variables
@@ -63,8 +69,8 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     (hy-mode :location (recipe :fetcher github :repo "hylang/hy-mode"))
-     nodejs-repl)
+     hy-mode
+    )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -323,8 +329,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
                             (sp-pair "'" nil :actions :rem)
                             (sp-pair "`" nil :actions :rem)))
 
-  ;; fast auto-completion
-  (setq company-idle-delay 0)
+  ;; global auto-completion
+  (global-company-mode)
 
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
