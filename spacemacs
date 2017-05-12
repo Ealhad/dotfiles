@@ -33,7 +33,9 @@ values."
    '(
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
-     elm
+     (elm :variables
+          elm-format-on-save t
+          elm-sort-imports-on-save t)
      racket
      yaml
      ruby
