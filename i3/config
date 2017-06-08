@@ -33,7 +33,7 @@ floating_modifier $mod
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+c kill
+bindsym $mod+n kill
 
 # start dmenu (a program launcher)
 bindsym $mod+s exec dmenu_run
