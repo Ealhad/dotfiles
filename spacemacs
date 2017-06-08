@@ -334,6 +334,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; global auto-completion
   (global-company-mode)
 
+  ;; flycheck params
+  (setq flycheck-check-syntax-automatically '(mode-enabled
+                                              save
+                                              idle-change)
+        flycheck-idle-change-delay 1)
+
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
 
