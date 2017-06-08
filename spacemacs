@@ -55,6 +55,7 @@ values."
      common-lisp
      lua
      erc
+     slack
      c-c++
      (auto-completion :variables
                       spacemacs-default-company-backends '(company-files company-capf)
