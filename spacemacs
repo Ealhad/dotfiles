@@ -36,6 +36,8 @@ values."
      (elm :variables
           elm-format-on-save t
           elm-sort-imports-on-save t)
+     elixir
+     php
      racket
      yaml
      ruby
