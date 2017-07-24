@@ -163,8 +163,12 @@ bindsym "XF86AudioLowerVolume" exec "amixer set Master 5%-"
 bindsym "XF86AudioMute" exec "amixer set Master toggle"
 
 # firefox and emacs
-bindsym $mod+b exec "firefox-developer"
+bindsym $mod+b exec "firefox"
 bindsym $mod+m exec "em"
+
+# Screenshots
+bindsym Shift+Print exec "maim | xclip -selection clipboard -t image/png"
+bindsym Print exec "maim -s | xclip -selection clipboard -t image/png"
 
 bindsym $mod+"comma" sticky toggle
 
