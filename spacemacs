@@ -316,9 +316,6 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (add-to-list 'default-frame-alist '(alpha 90 70))
-  (set-frame-parameter (selected-frame) 'alpha '(90 70))
-  (setq spacemacs-theme-comment-bg nil)
 
   ;; moving the automatic configuration to a git-ignored file
   (setq custom-file "~/dotfiles/.ignore/spacemacs_custom")
