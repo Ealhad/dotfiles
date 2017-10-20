@@ -31,12 +31,16 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     github
+     ranger
+     rust
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
      (elm :variables
           elm-format-on-save t
           elm-sort-imports-on-save t)
      elixir
+     finance
      php
      racket
      yaml
@@ -75,6 +79,7 @@ values."
    dotspacemacs-additional-packages
    '(
      hy-mode
+     flycheck-rust
     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -337,11 +342,14 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; global auto-completion
   (global-company-mode)
 
+  (evil-snipe-override-mode +1)
+
   ;; flycheck params
   (setq flycheck-check-syntax-automatically '(mode-enabled
                                               save
                                               idle-change)
         flycheck-idle-change-delay 1)
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
@@ -355,6 +363,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; TeX
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
+  ;; rust
+  (setq rust-format-on-save t)
 
   ;; web-mode
   (setq web-mode-code-indent-offset 2
