@@ -31,46 +31,56 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     github
-     ranger
-     rust
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil)
+     ;; languages and syntaxes
+     c-c++
+     clojure
+     common-lisp
+     elixir
      (elm :variables
           elm-format-on-save t
           elm-sort-imports-on-save t)
-     elixir
-     finance
-     php
-     racket
-     yaml
-     ruby
-     javascript
-     haskell
-     syntax-checking
-     python
-     html
-     clojure
-     ivy
-     (evil-snipe :variables
-                 evil-snipe-enable-alternate-f-and-t-behaviors t)
      emacs-lisp
-     git
-     markdown
-     gnus
-     common-lisp
+     (haskell :variables
+              haskell-process-type 'stack-ghci)
+     html
+     javascript
+     (latex :variables
+            latex-build-command "LaTeX")
      lua
+     markdown
+     php
+     python
+     racket
+     ruby
+     (rust :variables
+           rust-format-on-save t)
+     yaml
+
+     ;; applications
      erc
-     slack
-     c-c++
-     (auto-completion :variables
-                      spacemacs-default-company-backends '(company-files company-capf)
-                      auto-completion-complete-with-key-sequence-delay 0)
-     (latex :variables latex-build-command "LaTeX")
+     finance
+     gnus
      org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+
+     ;; utilities
+     (auto-completion :variables
+                      auto-completion-complete-with-key-sequence-delay 0
+                      auto-completion-enable-sort-by-usage t
+                      spacemacs-default-company-backends '(company-files company-capf))
+     (evil-snipe :variables
+                 evil-snipe-override-mode t
+                 evil-snipe-enable-alternate-f-and-t-behaviors t)
+     (git :variables
+          git-magit-status-fullscreen t)
+     github
+     helm
+     ranger
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+     syntax-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -148,12 +158,12 @@ values."
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-scratch-mode 'org-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+                         tsdh-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -217,10 +227,10 @@ values."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize t
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
-   dotspacemacs-helm-no-header nil
+   dotspacemacs-helm-no-header t
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
@@ -285,7 +295,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-smart-closing-parenthesis t
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -306,7 +316,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'trailing
    ))
 
 (defun dotspacemacs/user-init ()
@@ -339,7 +349,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; global auto-completion
   (global-company-mode)
 
-  (evil-snipe-override-mode +1)
+  (custom-set-faces
+   '(company-tooltip-common
+     ((t (:inherit company-tooltip :weight bold :underline nil))))
+   '(company-tooltip-common-selection
+     ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 
   ;; flycheck params
   (setq flycheck-check-syntax-automatically '(mode-enabled
@@ -352,7 +366,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq vc-follow-symlinks t)
 
   ;; Haskell
-  (setq haskell-process-type 'stack-ghci)
   (add-hook 'haskell-mode-hook
             (lambda ()
               (intero-mode)
@@ -361,15 +374,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; TeX
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 
-  ;; rust
-  (setq rust-format-on-save t)
-
   ;; web-mode
   (setq web-mode-code-indent-offset 2
         web-mode-script-padding 0
         web-mode-css-indent-offset 2
         web-mode-style-padding 0
         web-mode-markup-indent-offset 2)
+
   ;; web settings
   (setq  css-indent-offset 2
          display-battery-mode t
@@ -378,12 +389,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
          js2-strict-missing-semi-warning nil
          js2-strict-trailing-comma-warning nil)
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
-
-  ;; org-mode
-  (setq org-agenda-files '("~/org"))
-
-  ;; Always launch magit in fullscreen
-  (setq git-magit-status-fullscreen t)
 
   (setq inferior-lisp-program "ros -Q run")
   (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el")))
