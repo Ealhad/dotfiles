@@ -33,6 +33,7 @@ Plugin 'tpope/vim-fireplace'
 call vundle#end()
 filetype plugin indent on
 
+
 set encoding=utf-8
 set fileencoding=utf-8
 set number
@@ -43,14 +44,17 @@ set noerrorbells visualbell t_vb=
 syntax on
 color elflord
 
+" spacemacs-y
+let mapleader = " "
+nnoremap <LEADER>ft :NERDTreeToggle<CR>
 set showcmd
+
 set incsearch
 map Q gq
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
-nnoremap <space> za
 
 " Buffers
 set hidden
@@ -59,7 +63,6 @@ map <C-l> :bnext<CR>
 map ZA :w\|bdelete<CR>
 map ZX :bdelete!<CR>
 
-map <C-n> :NERDTreeToggle<CR>
 set expandtab
 set shiftwidth=4
 set softtabstop=4
