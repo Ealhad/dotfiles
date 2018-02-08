@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     nginx
      ;; languages and syntaxes
      c-c++
      clojure
@@ -54,6 +55,7 @@ values."
      ruby
      (rust :variables
            rust-format-on-save t)
+     sql
      yaml
 
      ;; applications
@@ -71,7 +73,6 @@ values."
                       auto-completion-enable-sort-by-usage t
                       spacemacs-default-company-backends '(company-files company-capf))
      (evil-snipe :variables
-                 evil-snipe-override-mode t
                  evil-snipe-enable-alternate-f-and-t-behaviors t)
      (git :variables
           git-magit-status-fullscreen t)
@@ -81,6 +82,11 @@ values."
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
      syntax-checking
+
+     ;; fun
+     emoji
+     games
+     xkcd
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -90,6 +96,7 @@ values."
    '(
      hy-mode
      flycheck-rust
+     ox-hugo
     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -346,8 +353,15 @@ before packages are loaded. If you are unsure, you should try in setting them in
                             (sp-pair "'" nil :actions :rem)
                             (sp-pair "`" nil :actions :rem)))
 
+  ;; ox-hugo config
+  (use-package ox-hugo
+    :ensure t
+    :after ox)
+
   ;; global auto-completion
   (global-company-mode)
+
+  (evil-snipe-override-mode 1)
 
   (custom-set-faces
    '(company-tooltip-common
