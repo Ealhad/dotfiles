@@ -5,7 +5,7 @@ general {
 }
 
 order += "volume master"
-order += "battery 0"
+order += "battery all"
 order += "cpu_temperature 0"
 order += "cpu_usage"
 order += "time local"
@@ -18,7 +18,7 @@ volume master {
     mixer_idx = 0
 }
 
-battery 0 {
+battery all {
     format = "%status %percentage %remaining"
     format_down = "No battery"
     status_chr = "🔌"
@@ -43,4 +43,3 @@ cpu_usage {
 time {
     format = "%Y-%m-%d %H:%M"
 }
-
