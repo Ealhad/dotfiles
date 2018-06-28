@@ -31,16 +31,18 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     nginx
      ;; languages and syntaxes
      c-c++
      clojure
      common-lisp
+     csv
      elixir
      (elm :variables
           elm-format-on-save t
           elm-sort-imports-on-save t)
      emacs-lisp
+     extra-langs
+     graphviz
      (haskell :variables
               haskell-process-type 'stack-ghci)
      html
@@ -49,23 +51,24 @@ values."
             latex-build-command "LaTeX")
      lua
      markdown
-     php
+     nginx
      python
      racket
      ruby
      (rust :variables
            rust-format-on-save t)
      sql
+     typescript
      yaml
 
      ;; applications
      erc
-     finance
      gnus
      org
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-shell 'eshell)
 
      ;; utilities
      (auto-completion :variables
@@ -94,14 +97,22 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     hy-mode
      flycheck-rust
+     hy-mode
+     indium
+     lsp-mode
+     lsp-ui
+     lsp-rust
+     org-mind-map
      ox-hugo
+     pipenv
+     pretty-mode
+     vue-mode
     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(org-projectile)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -175,11 +186,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monospace"
-                               :size 15
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.0)
+                               :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -234,7 +245,7 @@ values."
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize t
+   dotspacemacs-helm-resize nil
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
    dotspacemacs-helm-no-header t
@@ -289,8 +300,18 @@ values."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-   ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
-   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   ;; Control line numbers activation.
+   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
+   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; This variable can also be set to a property list for finer control:
+   ;; '(:relative nil
+   ;;   :disabled-for-modes dired-mode
+   ;;                       doc-view-mode
+   ;;                       markdown-mode
+   ;;                       org-mode
+   ;;                       pdf-view-mode
+   ;;                       text-mode
+   ;;   :size-limit-kb 1000)
    ;; (default nil)
    dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
@@ -302,7 +323,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis t
+   dotspacemacs-smart-closing-parenthesis nil
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -361,6 +382,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;; global auto-completion
   (global-company-mode)
 
+  (evil-snipe-mode 1)
   (evil-snipe-override-mode 1)
 
   (custom-set-faces
@@ -374,7 +396,15 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                               save
                                               idle-change)
         flycheck-idle-change-delay 1)
-  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+
+  (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-sideline-enable t)
+
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls"))
+    (require 'lsp-rust))
+  ;; (add-hook 'rust-mode-hook #'lsp-rust-enable)
 
   ;; get rid of symbolic link question
   (setq vc-follow-symlinks t)
@@ -404,5 +434,28 @@ before packages are loaded. If you are unsure, you should try in setting them in
          js2-strict-trailing-comma-warning nil)
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
-  (setq inferior-lisp-program "ros -Q run")
-  (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el")))
+  ;; Vue.js
+  (require 'vue-mode)
+  (add-to-list 'vue-mode-hook #'smartparens-mode)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)
+     (R . t)
+     (python . t)
+     (ruby . t)
+     (shell . t)))
+
+  (setq org-directory "~/Sync/org")
+  (setq org-agenda-files (list org-directory))
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file "~/Sync/org/todo.org")
+           "* TODO %?\n")
+          ("n" "Notes" entry (file "~/Sync/org/notes.org")
+           "* %?\n")
+          ("c" "Calendrier" entry (file "~/Sync/org/calendrier.org")
+           "* %?\n")
+          ("i" "INSA" entry (file "~/Sync/org/INSA.org")
+           "* %?\n")))
+  )
