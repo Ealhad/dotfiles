@@ -1,0 +1,10 @@
+#!/bin/bash
+
+max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+
+if [ -z $1 ]; then
+   brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+   echo "$(($brightness * 100 / $max))"
+else
+    echo "$(($1*$max/100))" >> /sys/class/backlight/intel_backlight/brightness
+fi

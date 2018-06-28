@@ -1,0 +1,2 @@
+#!/bin/sh
+conky -p 10 -c ~/.config/conky/clock.conf &

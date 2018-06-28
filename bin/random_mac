@@ -1,0 +1,4 @@
+#!/bin/sh
+ip link set wlp3s0 down
+macchanger -r wlp3s0
+ip link set wlp3s0 up
