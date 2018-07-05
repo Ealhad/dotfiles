@@ -32,7 +32,7 @@ filter_unmatched_urls = true
 #modify_other_keys = false
 
 [colors]
-#cursor = #dcdccc
+cursor = #dcdccc
 foreground = #dcdccc
 foreground_bold = #ffffff
 background = rgba(38, 38, 38, 0.90)
