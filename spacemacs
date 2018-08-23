@@ -446,6 +446,25 @@ before packages are loaded. If you are unsure, you should try in setting them in
      (ruby . t)
      (shell . t)))
 
+  (setq buffer-face-mode-face "Fira sans")
+
+  ;; Mix of proportional and monospace font in org-mode
+  (add-hook 'org-mode-hook
+            '(lambda ()
+               #'buffer-face-mode
+               (mapc
+                (lambda (face)
+                  (set-face-attribute face nil :inherit 'fixed-pitch))
+                (list 'org-code
+                      'org-link
+                      'org-block
+                      'org-table
+                      'org-block-begin-line
+                      'org-block-end-line
+                      'org-meta-line
+                      'org-document-info-keyword))))
+
+
   (setq org-directory "~/Sync/org")
   (setq org-agenda-files (list org-directory))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
