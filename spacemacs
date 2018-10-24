@@ -98,11 +98,13 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     company-lsp
      flycheck-rust
      hy-mode
      indium
      lsp-mode
      lsp-ui
+     lsp-vue
      lsp-rust
      org-mind-map
      ox-hugo
@@ -433,11 +435,18 @@ before packages are loaded. If you are unsure, you should try in setting them in
          js-indent-level 2
          js2-strict-missing-semi-warning nil
          js2-strict-trailing-comma-warning nil)
-  (add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
   ;; Vue.js
+  ;; need to install vue-language-server first
   (require 'vue-mode)
   (add-to-list 'vue-mode-hook #'smartparens-mode)
+
+  (require 'lsp-mode)
+  (require 'lsp-vue)
+  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+
+  (require 'company-lsp)
+  (push 'company-lsp company-backends)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
