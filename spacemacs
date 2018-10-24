@@ -85,6 +85,7 @@ values."
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
      syntax-checking
+     version-control
 
      ;; fun
      emoji
