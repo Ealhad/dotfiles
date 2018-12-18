@@ -579,6 +579,20 @@ before packages are loaded."
   (set-face-attribute 'variable-pitch nil
                       :family "Fira Sans")
 
+  (require 'notifications)
+  (appt-activate)
+  (setq
+   appt-display-interval 5
+   appt-display-mode-line nil
+   appt-message-warning-time 45)
+  (org-agenda-to-appt)
+  (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
+  (setq appt-disp-window-function
+        (lambda (remaining-time current-time msg)
+          (notifications-notify
+           :title msg
+           :body (format "%s minutes" remaining-time))))
+
   ;; Mix of proportional and monospace font in org-mode
   (add-hook 'org-mode-hook
             '(lambda ()
