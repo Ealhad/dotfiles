@@ -577,7 +577,7 @@ before packages are loaded."
      (shell . t)))
 
   (set-face-attribute 'variable-pitch nil
-                      :family "Fira Sans")
+                      :family "Nimbus Sans")
 
   (require 'notifications)
   (appt-activate)
