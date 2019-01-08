@@ -34,7 +34,36 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;; languages and syntaxes
+     ;; checkers
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+checkers
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+     syntax-checking
+
+     ;; completion
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+completion
+     (auto-completion :variables
+                      auto-completion-complete-with-key-sequence-delay 0
+                      auto-completion-enable-sort-by-usage t
+                      spacemacs-default-company-backends '(company-files company-capf))
+     helm
+
+     ;; emacs
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+emacs
+     org
+
+     ;; filetree
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+filetree
+     neotree
+
+     ;; fun
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+fun
+     emoji
+     games
+     xkcd
+
+     ;; lang
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang
      c-c++
      clojure
      common-lisp
@@ -53,7 +82,6 @@ This function should only modify configuration layer settings."
             latex-build-command "LaTeX")
      lua
      markdown
-     nginx
      python
      racket
      ruby
@@ -63,37 +91,31 @@ This function should only modify configuration layer settings."
      typescript
      yaml
 
-     ;; applications
-     erc
-     gnus
-     org
+     ;; misc
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+misc
+     multiple-cursors
+
+     ;; source-control
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+source-control
+     (git :variables
+          git-magit-status-fullscreen t)
+     version-control
+
+     ;; tools
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools
+     docker
+     lsp
+     nginx
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-shell 'eshell)
+     systemd
 
-     ;; utilities
-     (auto-completion :variables
-                      auto-completion-complete-with-key-sequence-delay 0
-                      auto-completion-enable-sort-by-usage t
-                      spacemacs-default-company-backends '(company-files company-capf))
+     ;;vim
+     ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+vim
      (evil-snipe :variables
                  evil-snipe-enable-alternate-f-and-t-behaviors t)
-     (git :variables
-          git-magit-status-fullscreen t)
-     helm
-     lsp
-     multiple-cursors
-     neotree
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil)
-     syntax-checking
-     version-control
-
-     ;; fun
-     emoji
-     games
-     xkcd
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -563,11 +585,13 @@ before packages are loaded."
          js2-strict-missing-semi-warning nil
          js2-strict-trailing-comma-warning nil)
 
+  (print "lsp-vue")
   ;; Vue
   ;; need to install vue-language-server first
-  (require 'lsp-vue)
-  (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  ;; (require 'lsp-vue)
+  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
 
+  (print "babel")
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((gnuplot . t)
