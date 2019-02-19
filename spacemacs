@@ -129,12 +129,8 @@ This function should only modify configuration layer settings."
      hy-mode
      indium
      org-mind-map
-     ox-hugo
      pipenv
-
-     ;; vue
      vue-mode
-     lsp-vue
     )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -535,11 +531,6 @@ before packages are loaded."
                             (sp-pair "'" nil :actions :rem)
                             (sp-pair "`" nil :actions :rem)))
 
-  ;; ox-hugo config
-  (use-package ox-hugo
-    :ensure t
-    :after ox)
-
   ;; global auto-completion
   (global-company-mode)
 
@@ -585,24 +576,15 @@ before packages are loaded."
          js2-strict-missing-semi-warning nil
          js2-strict-trailing-comma-warning nil)
 
-  (print "lsp-vue")
+  ;; disable mmm-mode colors
+  (add-hook 'mmm-mode-hook
+            (lambda ()
+              (set-face-background 'mmm-default-submode-face nil)))
+
   ;; Vue
-  ;; need to install vue-language-server first
-  ;; (require 'lsp-vue)
-  ;; (add-hook 'vue-mode-hook #'lsp-vue-mmm-enable)
+  (add-hook 'vue-mode-hook 'lsp)
 
-  (print "babel")
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((gnuplot . t)
-     (R . t)
-     (python . t)
-     (ruby . t)
-     (shell . t)))
-
-  (set-face-attribute 'variable-pitch nil
-                      :family "Nimbus Sans")
-
+  ;; Notifications setup
   (require 'notifications)
   (appt-activate)
   (setq
@@ -617,22 +599,15 @@ before packages are loaded."
            :title msg
            :body (format "%s minutes" remaining-time))))
 
-  ;; Mix of proportional and monospace font in org-mode
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (variable-pitch-mode 1)
-               (mapc
-                (lambda (face)
-                  (set-face-attribute face nil :inherit 'fixed-pitch))
-                (list 'org-code
-                      'org-link
-                      'org-block
-                      'org-table
-                      'org-block-begin-line
-                      'org-block-end-line
-                      'org-meta-line
-                      'org-document-info-keyword))))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((gnuplot . t)
+     (R . t)
+     (python . t)
+     (ruby . t)
+     (shell . t)))
 
+  ;; Orgmode files
   (setq org-directory "~/Sync/org")
   (setq org-agenda-files (list org-directory))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
