@@ -591,8 +591,17 @@ before packages are loaded."
    appt-display-interval 5
    appt-display-mode-line nil
    appt-message-warning-time 45)
-  (org-agenda-to-appt)
-  (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
+
+  (defun my-org-agenda-to-appt ()
+    (interactive)
+    (setq appt-time-msg-list nil)
+    (org-agenda-to-appt))
+
+  (add-hook 'org-agenda-finalize-hook 'my-org-agenda-to-appt)
+  ;; Re-run function at midnight, since org-agenda-to-appt only creates appts
+  ;; for current day.
+  (run-at-time "12:05am" (* 24 3600) 'my-org-agenda-to-appt)
+
   (setq appt-disp-window-function
         (lambda (remaining-time current-time msg)
           (notifications-notify
