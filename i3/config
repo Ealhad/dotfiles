@@ -23,7 +23,7 @@ font pango:DejaVu Sans Mono 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec xterm
 
 # kill focused window
 bindsym $mod+n kill

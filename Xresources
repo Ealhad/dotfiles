@@ -1,0 +1,62 @@
+#define black1    #3f3f3f
+#define black2    #709080
+#define red1      #705050
+#define red2      #dca3a3
+#define green1    #60b48a
+#define green2    #c3bf9f
+#define yellow1   #dfaf8f
+#define yellow2   #f0dfaf
+#define blue1     #506070
+#define blue2     #94bff3
+#define magenta1  #dc8cc3
+#define magenta2  #ec93d3
+#define cyan1     #8cd0d3
+#define cyan2     #93e0e3
+#define white1    #dcdccc
+#define white2    #ffffff
+
+*.foreground:   white1
+*.background:   black1
+*.cursorColor:  white1
+*.cursorColor2:  white2
+*.cursorUnderline: true
+*.cursorBlink: true
+
+*.color0:  black1
+*.color1:  red1
+*.color2:  green1
+*.color3:  yellow1
+*.color4:  blue1
+*.color5:  magenta1
+*.color6:  cyan1
+*.color7:  white1
+*.color8:  black2
+*.color9:  red2
+*.color10: green2
+*.color11: yellow2
+*.color12: blue2
+*.color13: magenta2
+*.color14: cyan2
+*.color15: white2
+
+! xterm
+
+xterm*dynamiccolors:     true
+xterm*utf8:              2
+xterm*faceName:          FiraCode-11
+xterm*internalBorder:    2
+xterm*borderWidth:       0
+xterm*fastScroll:        true
+xterm*savelines:         16384
+xterm*scrollTtyOutput:   false
+xterm*scrollKey:         true
+xterm*selectToClipboard: true
+xterm.vt100.metaSendsEscape: true
+
+! double-click to select whole URLs
+xterm*charClass: 33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+
+xterm.vt100.translations: #override \n\
+  Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+  Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
