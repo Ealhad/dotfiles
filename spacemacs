@@ -584,6 +584,10 @@ before packages are loaded."
   ;; Vue
   (add-hook 'vue-mode-hook 'lsp)
 
+  ;; Mac specific settings
+  (when (eq system-type 'darwin)
+    (setq ns-right-alternate-modifier 'none))
+
   ;; Notifications setup
   (require 'notifications)
   (appt-activate)
