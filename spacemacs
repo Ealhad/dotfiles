@@ -60,7 +60,6 @@ This function should only modify configuration layer settings."
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+fun
      emoji
      games
-     xkcd
 
      ;; lang
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+lang
@@ -73,7 +72,6 @@ This function should only modify configuration layer settings."
           elm-format-on-save t
           elm-sort-imports-on-save t)
      emacs-lisp
-     graphviz
      (haskell :variables
               haskell-process-type 'stack-ghci)
      html
@@ -82,8 +80,8 @@ This function should only modify configuration layer settings."
             latex-build-command "LaTeX")
      lua
      markdown
+     php
      python
-     racket
      ruby
      (rust :variables
            rust-format-on-save t)
