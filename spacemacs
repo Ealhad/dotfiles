@@ -101,6 +101,7 @@ This function should only modify configuration layer settings."
 
      ;; tools
      ;; https://github.com/syl20bnr/spacemacs/tree/develop/layers/+tools
+     ansible
      docker
      lsp
      nginx
